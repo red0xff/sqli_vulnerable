@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  db:
+    image: mariadb:10.4
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'sqli'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  client:
+    build: .
+    restart: always
+    ports:
+      - '1337:1337'
+    expose:
+      - '1337'
