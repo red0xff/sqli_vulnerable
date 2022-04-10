@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server
+    restart: always
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'anything123!'
+    ports:
+      - '1433:1433'
+    expose:
+      - '1433'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./entrypoint.sh:/entrypoint.sh
+    command: ["/bin/bash", "-c", "/entrypoint.sh"]
+  #client:
+  #  build: .
+  #  restart: always
+  #  ports:
+  #    - '1337:1337'
+  #  expose:
+  #    - '1337'
