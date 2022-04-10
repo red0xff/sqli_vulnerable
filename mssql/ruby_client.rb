@@ -1,7 +1,10 @@
 require 'tiny_tds'
 require 'socket'
+
+HOST = 'mssql_server'
+
 sck = TCPServer.open(1337)
-conn = TinyTds::Client.new username: 'sa', password: 'anything123!', host: 'localhost', database: 'myapp'
+conn = TinyTds::Client.new username: 'sa', password: 'anything123!', host: HOST, database: 'myapp'
 loop{
   begin
     client = sck.accept
