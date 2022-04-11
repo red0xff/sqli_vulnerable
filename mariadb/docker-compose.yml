@@ -21,3 +21,5 @@ services:
       - '1337:1337'
     expose:
       - '1337'
+    volumes:
+      - ./ruby_client.rb:/app/ruby_client.rb

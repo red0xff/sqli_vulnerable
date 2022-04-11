@@ -6,4 +6,10 @@ insert into articles values (1, 'Over 3.8 billion people use the internet today,
 (5, 'By 2020, video will account for about 80% of all internet traffic.'),
 (6, '340,000 tweets are sent per minute.'),
 (7, '90% of the world’s data has been created in the last couple years.');
+
+create table users(username varchar(32), password varchar(32));
+insert into users values('red0xff', 'PasswordTest1'),
+('admin', 'AdminPass1337'),
+('guest', 'GuestPass');
+
 commit;
