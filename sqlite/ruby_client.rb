@@ -2,6 +2,8 @@
 
 require 'sqlite3'
 require 'socket'
+require 'timeout'
+
 sck = TCPServer.open(1337)
 db = SQLite3::Database.new 'test.db'
 
@@ -21,7 +23,11 @@ puts '[*] Initialization done'
 loop do
   begin
     client = sck.accept
-    id = client.gets.chomp
+    id = nil
+    Timeout::timeout 5 do
+      id = client.gets.chomp
+    end
+
     result = db.execute("select content from articles where id=#{id}").to_a
     if result.empty?
       client.puts('[-] No results')

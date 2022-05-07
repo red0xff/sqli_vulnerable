@@ -1,5 +1,6 @@
 require 'tiny_tds'
 require 'socket'
+require 'timeout'
 
 HOST = 'mssql_server'
 
@@ -8,8 +9,12 @@ conn = TinyTds::Client.new username: 'sa', password: 'anything123!', host: HOST,
 loop{
   begin
     client = sck.accept
-    id = client.gets.chomp
-    puts "[*] id = #{id}"
+    id = nil
+    Timeout::timeout 5 do
+      id = client.gets.chomp
+    end
+
+    $stderr.puts(id)
     result = conn.execute( "select content from articles where id=#{id}" ).to_a
     if result.empty?
       client.puts('[-] No results')
